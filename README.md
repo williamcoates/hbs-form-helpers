@@ -13,4 +13,4 @@
 ## Use in your views
 
 
-    {{emailInput 'email' placeholder='Enter your email' required=true}}
+    {{{emailInput 'email' placeholder='Enter your email' required=true}}}
