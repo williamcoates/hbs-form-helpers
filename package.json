@@ -8,5 +8,9 @@
   },
   "author": "William Coates",
   "license": "MIT",
-  "dependencies": {}
+  "dependencies": {},
+  "repository" :{
+      "type" : "git",
+      "url" : "https://github.com/williamcoates/hbs-form-helpers"
+  }
 }
