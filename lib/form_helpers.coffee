@@ -29,6 +29,9 @@ class FormHelpers
   _nameAndId: (ctx, name) ->
     "name=\"#{@_name(ctx, name)}\" id=\"#{@_id(ctx, name)}\""
 
+  _inputClass: ->
+    ''
+
   messageContainer: (ctx, name, body) ->
     isError = @isError(ctx, name)
     """<div class="controls#{if isError then ' error' else ''}">#{body}#{@errorTag(ctx, name)}</div>"""
@@ -86,7 +89,7 @@ class FormHelpers
     optionalAttributesString = ("#{key}=\"#{@_parseMagicMarkers(val)}\"" for key, val of optionalAttributes).join('')
     isAutofocus = inputOptions?.autofocus is true
     isRequired = inputOptions?.required is true
-    @messageContainer(ctx, name, """<#{tagName} #{typeAttribute} #{@_nameAndId(ctx, name)} value="#{value}"
+    @messageContainer(ctx, name, """<#{tagName} #{typeAttribute} class="#{@_inputClass()}" #{@_nameAndId(ctx, name)} value="#{value}"
           #{if isAutofocus then 'autofocus' else ''} #{if isRequired then 'required' else ''} #{optionalAttributesString} #{endTag}""")
 
   textArea: (ctx, name, options) ->
