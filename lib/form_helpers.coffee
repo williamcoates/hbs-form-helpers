@@ -82,7 +82,7 @@ class FormHelpers
     optionalAttributes = {}
     # i18n
     if inputOptions?['placeholder']
-      inputOptions['placeholder'] = ctx.i18n.__(inputOptions?['placeholder'])
+      inputOptions['placeholder'] = if ctx.i18n then ctx.i18n.__(inputOptions?['placeholder']) else inputOptions['placeholder']
     for a in knownOptionalAttributes
       if inputOptions?[a]
         optionalAttributes[a] = inputOptions[a]
