@@ -1,6 +1,12 @@
 class FormHelpers
   @INPUTS = ['text', 'password', 'number', 'email', 'url', 'range', 'hidden']
-  @OTHERS = ['select', 'textArea', 'labelId']
+  @OTHERS = ['select', 'textArea', 'labelId', 'errorMessage']
+
+  _i18n: (ctx, msg) ->
+    if ctx.i18n
+      ctx.i18n.__(msg)
+    else
+      msg
 
   _objectNamespace: (ctx) ->
     null
@@ -51,9 +57,12 @@ class FormHelpers
     else
       errorObj?.message
 
+  errorMessage: (ctx, name) ->
+    @messageContainer(ctx, name, '')
+
   errorTag: (ctx, name) ->
     if @isError(ctx, name)
-      """<div class="error">#{ctx.i18n.__(@_errorMessage(ctx, name))}</div>"""
+      """<div class="error">#{@_i18n(ctx, @_errorMessage(ctx, name))}</div>"""
     else
       ''
 
@@ -82,7 +91,7 @@ class FormHelpers
     optionalAttributes = {}
     # i18n
     if inputOptions?['placeholder']
-      inputOptions['placeholder'] = if ctx.i18n then ctx.i18n.__(inputOptions?['placeholder']) else inputOptions['placeholder']
+      inputOptions['placeholder'] = @_i18n(ctx, inputOptions?['placeholder'])
     for a in knownOptionalAttributes
       if inputOptions?[a]
         optionalAttributes[a] = inputOptions[a]
@@ -97,7 +106,7 @@ class FormHelpers
 
   select: (ctx, name, options) ->
     selectOptions = options.hash
-    optionsString = ("""<option value="#{key}">#{ctx.i18n.__(value)}</option>""" for key, value of selectOptions).join("")
+    optionsString = ("""<option value="#{key}">#{@_i18n(ctx, value)}</option>""" for key, value of selectOptions).join("")
     """<select #{@_nameAndId(ctx, name)}>#{optionsString}</select>"""
 
   # Sets up a helper, fixing the context so that we have the Handlebars context in first arg instead of as 'this'
