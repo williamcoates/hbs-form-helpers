@@ -87,7 +87,7 @@ class FormHelpers
       tagName = 'input'
       endTag =  "/>"
 
-    knownOptionalAttributes = ['placeholder', 'min', 'max', 'step']
+    knownOptionalAttributes = ['placeholder', 'min', 'max', 'step', 'pattern']
     optionalAttributes = {}
     # i18n
     if inputOptions?['placeholder']
