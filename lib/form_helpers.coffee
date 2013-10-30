@@ -95,6 +95,9 @@ class FormHelpers
     for a in knownOptionalAttributes
       if inputOptions?[a]
         optionalAttributes[a] = inputOptions[a]
+    for key, val of inputOptions
+      if key.indexOf("data-") is 0
+        optionalAttributes[key] = val
     optionalAttributesString = ("#{key}=\"#{@_parseMagicMarkers(val)}\"" for key, val of optionalAttributes).join('')
     isAutofocus = inputOptions?.autofocus is true
     isRequired = inputOptions?.required is true
